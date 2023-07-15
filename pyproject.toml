@@ -1,0 +1,35 @@
+[tool.poetry]
+name = "hhaven"
+license = "MIT"
+version = "0.1.0"
+description = "An API wrapper for Hentai Haven."
+authors = [
+    "JokelBaf <jokelbaf@gmail.com>",
+]
+maintainers = [
+    "JokelBaf <jokelbaf@gmail.com>",
+]
+readme = "README.md"
+homepage = "https://github.com/jokelbaf/hhaven"
+repository = "https://github.com/jokelbaf/hhaven"
+documentation = "https://jokelbaf.github.io/hhaven"
+keywords = ["hentai-haven", "hentai"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "License :: OSI Approved :: MIT License",
+    "Intended Audience :: Developers",
+    "Natural Language :: English",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python",
+    "Topic :: Internet :: WWW/HTTP",
+    "Topic :: Software Development :: Libraries",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: Utilities",
+    "Typing :: Typed",
+]
+
+[tool.poetry.dependencies]
+aiocache = "^0.12.1"
+pydantic = "^2.0.2"
+aiohttp = "^3.8.4"
+python = "^3.8"
