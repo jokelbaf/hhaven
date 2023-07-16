@@ -1,4 +1,7 @@
-![hhaven-logo](https://github.com/JokelBaf/hhaven/assets/60827680/307bbf3e-0e45-4a0a-9926-09930f0b44cc)
+
+
+![hhaven-logo2](https://github.com/JokelBaf/hhaven/assets/60827680/fcd6f387-a8dc-41c7-9e24-e8c51d139768)
+
 
 # HHaven
 ![GitHub release (with filter)](https://img.shields.io/github/v/release/jokelbaf/hhaven?style=for-the-badge&logo=github&label=Version&labelColor=%23c7423e) ![PyPI](https://img.shields.io/pypi/v/hhaven?style=for-the-badge&logo=pypi&logoColor=white) ![Code Climate coverage](https://img.shields.io/codeclimate/coverage/JokelBaf/hhaven?style=for-the-badge&logo=codeclimate&logoColor=white)
