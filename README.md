@@ -31,7 +31,7 @@ From GitHub:
 pip install git+https://github.com/JokelBaf/hhaven.git
 ```
 
-# Examples
+## Examples
 Search for hentai by it's name:
 ```python
 from hhaven import Client
