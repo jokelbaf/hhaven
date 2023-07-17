@@ -1,18 +1,34 @@
 """Main client module."""
 
 import logging, aiohttp, typing, json, aiocache
+from collections import namedtuple
 
 from . import exceptions, utility, models
 from .decorators import requires_build, requires_token, cached
 
 
+__all__ = [
+    "Client"
+]
+
+
 class Client:
     """Hentai Haven client."""
     
+    # Custom docs for pydoc
+    token: str
+    """Cloudflare token used to access Hentai Haven API."""
+    cache: aiocache.Cache
+    """Cache object to cache functions results."""
+    cache_ttl: int
+    """Time to live for the cache."""
     
-    BASE_API_URL = "https://api.hentaihaven.app/v1/"
     
-    logger: logging.Logger = logging.getLogger(__name__)
+    _built = False
+    
+    _BASE_API_URL = "https://api.hentaihaven.app/v1/"
+    
+    _logger: logging.Logger = logging.getLogger(__name__)
     
     _default_headers: typing.Mapping[str, str] = {
         "content-type": "application/x-www-form-urlencoded; charset=utf-8",
@@ -29,6 +45,7 @@ class Client:
         "manufacturer": "Google",
         "model": "sdk_gphone_x86_64"
     }
+    
     
     def __init__(
         self, 
@@ -56,8 +73,6 @@ class Client:
         self.debug = debug
         self.cache_ttl = cache_ttl
         self._default_warden_body = warden_body
-        
-        self.built = False
         
         if token:
             self.token = token
@@ -112,7 +127,7 @@ class Client:
             # Validate token
             await self._request("GET", "hentai/home", disable_logging = True)
         
-        self.built = True
+        self._built = True
             
         return self
     
@@ -128,14 +143,14 @@ class Client:
         async with aiohttp.ClientSession(headers = headers) as session:
             async with session.request(
                 method = method,
-                url = self.BASE_API_URL + path,
+                url = self._BASE_API_URL + path,
                 data = data
             ) as r:
                 response = await r.json()
                 status = utility._get_status_from_response(response) or r.status
                 
                 if not disable_logging:
-                    self.logger.debug("%s %s\n%s\n%s", method, r.url, json.dumps(data, separators=(",", ":")), response)
+                    self._logger.debug("%s %s\n%s\n%s", method, r.url, json.dumps(data, separators=(",", ":")), response)
                 
                 if not str(status).startswith("2"):
                     return utility._raise_for_status(status)
@@ -227,7 +242,7 @@ class Client:
     @cached
     async def get_all_genres(self) -> models.HentaiGenre:
         """
-        Get all hentai genres.
+        Get list of all hentai genres.
         
         Returns:
             `list[models.HentaiGenre]` - [Docs](https://github.com)

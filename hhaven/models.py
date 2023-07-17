@@ -4,6 +4,23 @@ from datetime import datetime
 import pydantic, typing
 
 
+__all__ = [
+    "HentaiRating",
+    "HentaiGenre",
+    "PartialHentaiGenre",
+    "GenrePage",
+    "HentaiPage",
+    "HentaiTag",
+    "HentaiAuthor",
+    "HentaiRelease",
+    "HentaiEpisode",
+    "PartialHentaiEpisode",
+    "HomePage",
+    "Hentai",
+    "PartialHentai"
+]
+
+
 class HentaiRating(pydantic.BaseModel):
     """Information about hentai rating."""
     rating: float

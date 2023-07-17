@@ -3,6 +3,18 @@
 import typing
 
 
+__all__ = [
+    "HHavenException",
+    "HHavenRateLimited",
+    "HHavenNotFound",
+    "TokenException",
+    "HentaiNotFound",
+    "GenrePageNotFound",
+    "HentaiPageNotFound",
+    "HentaiEpisodeNotFound"
+]
+
+
 class HHavenException(Exception):
     """Base Hentai Haven exception."""
     

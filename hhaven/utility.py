@@ -5,6 +5,9 @@ import typing
 from . import exceptions
 
 
+__all__ = []
+
+
 def _raise_for_status(status: int):
     """Raise exception for status."""
     

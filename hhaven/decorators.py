@@ -3,9 +3,12 @@
 from . import exceptions
 
 
+__all__ = []
+
+
 def requires_build(func):
     def wrapper(self, *args, **kwargs):
-        if not self.built:
+        if not self._built:
             raise exceptions.HHavenException("Hentai Haven client was not fully initialized. Remember to use client.build() to complete client initialization.", 0)
         return func(self, *args, **kwargs)
     return wrapper
