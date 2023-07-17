@@ -1,6 +1,4 @@
-
-
-![hhaven-logo2](https://github.com/JokelBaf/hhaven/assets/60827680/fcd6f387-a8dc-41c7-9e24-e8c51d139768)
+ ![hhaven-logo](https://github.com/JokelBaf/hhaven/assets/60827680/6044afe5-5c47-4ac9-9673-1a6b31ffefd9)
 
 
 # HHaven
