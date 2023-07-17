@@ -52,7 +52,6 @@ class Client:
         Note that in order to completely initialize client you 
         need to call `client.build()` function.
         """
-        self.token = token
         self.cache = cache
         self.debug = debug
         self.cache_ttl = cache_ttl
@@ -61,7 +60,7 @@ class Client:
         self.built = False
         
         if token:
-            self._default_headers["warden"] = token
+            self.token = token
             
             
     @property
