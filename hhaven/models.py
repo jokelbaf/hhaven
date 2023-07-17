@@ -285,7 +285,7 @@ class HentaiEpisode(pydantic.BaseModel):
     Example: https://example.com/image.jpg
     """
     hentai_description: str
-    """Full hentai description on English."""
+    """Full hentai description in English."""
     hentai_date: datetime
     """Datetime object representing hentai upload date."""
     hentai_rating: HentaiRating
@@ -387,7 +387,7 @@ class PartialHentaiEpisode(pydantic.BaseModel):
     Example: https://example.com/image.jpg
     """
     hentai_description: str
-    """Full hentai description on English."""
+    """Full hentai description in English."""
     client: typing.Any
     
     def __init__(self, **data):
@@ -437,7 +437,7 @@ class Hentai(pydantic.BaseModel):
     date: datetime
     """Datetime object representing hentai upload date."""
     description: str
-    """Full description on English."""
+    """Full description in English."""
     rating: HentaiRating
     """Hentai rating object. Has `rating` and `votes` attributes."""
     tags: list[HentaiTag]
