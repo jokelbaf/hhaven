@@ -36,6 +36,7 @@ pip install git+https://github.com/JokelBaf/hhaven.git
 Search for hentai by it's name:
 ```python
 from hhaven import Client
+import asyncio
 
 async def main():
     client = await Client().build()
@@ -51,6 +52,7 @@ if __name__ == "__main__":
 Get all episodes of the latest hentai:
 ```python
 from hhaven import Client
+import asyncio
 
 async def main():
     client = await Client().build()
