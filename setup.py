@@ -6,7 +6,7 @@ setup(
     version = "0.1.0",
     author = "jokelbaf",
     author_email = "jokelbaf@gmail.com",
-    description = "An API wrapper for Hentai Haven.",
+    description = "A well-documented and typed API wrapper for Hentai Haven.",
     keywords = "hentai-haven hentai".split(),
     url = "https://github.com/jokelbaf/hhaven",
     project_urls = {

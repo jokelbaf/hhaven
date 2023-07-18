@@ -1,5 +1,5 @@
 """
-Well documented and typed API wrapper for https://hentaihaven.xxx.
+A well documented and typed API wrapper for https://hentaihaven.xxx.
 
 Documentation: https://jokelbaf.github.io/hhaven
 

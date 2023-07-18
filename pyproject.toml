@@ -2,7 +2,7 @@
 name = "hhaven"
 license = "MIT"
 version = "0.1.0"
-description = "An API wrapper for Hentai Haven."
+description = "A well-documented and typed API wrapper for Hentai Haven."
 authors = [
     "JokelBaf <jokelbaf@gmail.com>",
 ]
