@@ -12,6 +12,11 @@ A well-documented and typed API wrapper for [**Hentai Haven**](https://hentaihav
 - **Pydantic Model Output:** Receive all data in the form of Pydantic Models, enabling comprehensive autocompletion and linter support.
 - **Comprehensive Documentation:** Explore extensive and user-friendly documentation, covering all aspects of this library.
 
+## Links
+Repository - https://github.com/JokelBaf/hhaven
+
+API Reference - https://jokelbaf.github.io/hhaven-api-reference
+
 ## Requirements
 
 - Python 3.8+
