@@ -1,7 +1,7 @@
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://github.com/JokelBaf/hhaven/assets/60827680/977e3964-e2f5-443a-b1c5-57f7a3089f6e">
-  <source media="(prefers-color-scheme: light)" srcset="https://github.com/JokelBaf/hhaven/assets/60827680/521c38e7-96d7-4781-9660-b2a61ee9fb17">
-  <img alt="Logo" src="https://github.com/JokelBaf/hhaven/assets/60827680/521c38e7-96d7-4781-9660-b2a61ee9fb17">
+  <source media="(prefers-color-scheme: dark)" srcset="https://github.com/JokelBaf/hhaven/raw/master/docs/assets/logo-dark.png">
+  <source media="(prefers-color-scheme: light)" srcset="https://github.com/JokelBaf/hhaven/raw/master/docs/assets/logo-light.png">
+  <img alt="Logo" src="https://github.com/JokelBaf/hhaven/raw/master/docs/assets/logo-dark.png">
 </picture>
 
 
