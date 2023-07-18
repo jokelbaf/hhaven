@@ -9,4 +9,4 @@ Source Code: https://github.com/jokelbaf/hhaven
 from . import models, exceptions
 from .client import *
 
-__version__ = "0.1.0"
+__version__ = "0.1.2"

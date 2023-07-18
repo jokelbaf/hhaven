@@ -3,7 +3,7 @@ from setuptools import find_packages, setup
 
 setup(
     name = "hhaven",
-    version = "0.1.0",
+    version = "0.1.2",
     author = "jokelbaf",
     author_email = "jokelbaf@gmail.com",
     description = "A well-documented and typed API wrapper for Hentai Haven.",
@@ -19,7 +19,7 @@ setup(
     install_requires = ["aiohttp", "pydantic", "aiocache"],
     include_package_data = True,
     package_data = {"hhaven": ["py.typed"]},
-    long_description = open("README.md", encoding="utf-8").read(),
+    long_description = open("README-pypi.md", encoding="utf-8").read(),
     long_description_content_type = "text/markdown",
     license = "MIT",
     classifiers = [

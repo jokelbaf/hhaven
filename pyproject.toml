@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "hhaven"
 license = "MIT"
-version = "0.1.0"
+version = "0.1.2"
 description = "A well-documented and typed API wrapper for Hentai Haven."
 authors = [
     "JokelBaf <jokelbaf@gmail.com>",
@@ -9,7 +9,7 @@ authors = [
 maintainers = [
     "JokelBaf <jokelbaf@gmail.com>",
 ]
-readme = "README.md"
+readme = "README-pypi.md"
 homepage = "https://github.com/jokelbaf/hhaven"
 repository = "https://github.com/jokelbaf/hhaven"
 documentation = "https://jokelbaf.github.io/hhaven"
