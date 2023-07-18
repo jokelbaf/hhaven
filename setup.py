@@ -11,6 +11,7 @@ setup(
     url = "https://github.com/jokelbaf/hhaven",
     project_urls = {
         "Documentation": "https://jokelbaf.github.io/hhaven",
+        "API Reference": "https://jokelbaf.github.io/hhaven-api-reference",
         "Issue tracker": "https://github.com/jokelbaf/hhaven/issues",
     },
     packages = find_packages(exclude=["tests.*"]),

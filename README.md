@@ -19,7 +19,7 @@ A well-documented and typed API wrapper for [**Hentai Haven**](https://hentaihav
 ## Links
 Documentation - https://jokelbaf.github.io/hhaven
 
-API Reference - https://jokelbaf.github.io/hhaven-docs/pydoc
+API Reference - https://jokelbaf.github.io/hhaven-api-reference
 
 ## Requirements
 
