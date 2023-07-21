@@ -3,7 +3,7 @@ from setuptools import find_packages, setup
 
 setup(
     name = "hhaven",
-    version = "0.1.3",
+    version = "0.1.4",
     author = "jokelbaf",
     author_email = "jokelbaf@gmail.com",
     description = "A well-documented and typed API wrapper for Hentai Haven.",

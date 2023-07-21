@@ -271,6 +271,15 @@ class HentaiEpisode(pydantic.BaseModel):
     """
     date: datetime
     """Datetime object representing episode upload date."""
+    content: str
+    """
+    Url to m3u8 file of the episode. Usually contains multiple quality levels:
+    - 480p
+    - 720p
+    - 1080p
+    
+    Example: https://example.com/episode-name.m3u8 
+    """
     thumbnail: str
     """
     Episode thumbnail url.
@@ -347,9 +356,9 @@ class HentaiEpisode(pydantic.BaseModel):
             for key, value in data.items():
                 if key not in ("id", "name", "thumbnail", "date", "slug"):
                     if key == "next_episode" or key == "prev_episode":
-                        data["next_episode"][key] = None
+                        data["prev_episode"][key] = None
                     else:
-                        data["next_episode"][key] = value
+                        data["prev_episode"][key] = value
                         
         for genre in processed["hentai_genres"]:
             genre["client"] = data.get("client")
