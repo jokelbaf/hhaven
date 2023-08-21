@@ -161,7 +161,7 @@ class Client:
     @requires_build
     @requires_token
     @cached
-    async def home(self):
+    async def home(self) -> models.HomePage:
         """
         Get home page info.
         
