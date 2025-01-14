@@ -12,7 +12,7 @@ maintainers = [
 readme = "README.md"
 homepage = "https://github.com/jokelbaf/hhaven"
 repository = "https://github.com/jokelbaf/hhaven"
-documentation = "https://jokelbaf.github.io/hhaven"
+documentation = "https://hhaven.nekolab.app"
 keywords = ["hentai-haven", "hentai"]
 classifiers = [
     "Development Status :: 4 - Beta",

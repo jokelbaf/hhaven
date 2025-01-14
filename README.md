@@ -17,7 +17,7 @@ A well-documented and typed API wrapper for [**Hentai Haven**](https://hentaihav
 - **Comprehensive Documentation:** Explore extensive and user-friendly documentation, covering all aspects of this library.
 
 ## Links
-Documentation - https://jokelbaf.github.io/hhaven
+Documentation - https://hhaven.nekolab.app
 
 API Reference - https://jokelbaf.github.io/hhaven-api-reference
 

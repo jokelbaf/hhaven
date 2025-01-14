@@ -10,7 +10,7 @@ setup(
     keywords = "hentai-haven hentai".split(),
     url = "https://github.com/jokelbaf/hhaven",
     project_urls = {
-        "Documentation": "https://jokelbaf.github.io/hhaven",
+        "Documentation": "https://hhaven.nekolab.app",
         "API Reference": "https://jokelbaf.github.io/hhaven-api-reference",
         "Issue tracker": "https://github.com/jokelbaf/hhaven/issues",
     },

@@ -1,7 +1,7 @@
 """
 A well documented and typed API wrapper for https://hentaihaven.xxx.
 
-Documentation: https://jokelbaf.github.io/hhaven
+Documentation: https://hhaven.nekolab.app
 
 Source Code: https://github.com/jokelbaf/hhaven
 """
