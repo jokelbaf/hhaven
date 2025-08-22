@@ -82,6 +82,12 @@ cd hhaven
 uv sync
 ```
 
+To run tests, use the following commands:
+```bash
+uv sync --group test
+uv run pytest
+```
+
 To run documentation locally, use the following command:
 ```bash
 uvx --with mkdocs-material[emoji] mkdocs serve
