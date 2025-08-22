@@ -60,4 +60,4 @@ markdown_extensions:
       emoji_generator: !!python/name:materialx.emoji.to_svg
 
 copyright: |
-  &copy; 2023 <a href="https://github.com/jokelbaf"  target="_blank" rel="noopener">JokelBaf</a>
+  &copy; 2025 <a href="https://github.com/jokelbaf"  target="_blank" rel="noopener">JokelBaf</a>
