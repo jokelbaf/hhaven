@@ -7,6 +7,12 @@ Source Code: https://github.com/jokelbaf/hhaven
 """
 
 from . import models, exceptions
-from .client import *
+from .client import Client
+
+__all__ = [
+    "Client",
+    "models", 
+    "exceptions"
+]
 
 __version__ = "0.2.0"
