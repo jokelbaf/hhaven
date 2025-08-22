@@ -79,12 +79,11 @@ Uv is a preferred tool for managing dependencies and running the development env
 ```bash
 git clone https://github.com/JokelBaf/hhaven.git
 cd hhaven
-uv sync
+uv sync --group test
 ```
 
 To run tests, use the following commands:
 ```bash
-uv sync --group test
 uv run pytest
 ```
 
