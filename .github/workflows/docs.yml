@@ -1,11 +1,12 @@
-name: Deploy to GitHub Pages 
+name: Deploy to GitHub Pages
 on:
   push:
     branches:
-      - master 
-      - main
+      - master
+
 permissions:
   contents: write
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -16,18 +17,12 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: 3.x
+          python-version: '3.x'
 
-      - name: Cache pip
-        uses: actions/cache@v4
+      - name: Install uv (Astral's uv tool)
+        uses: astral-sh/setup-uv@v6
         with:
-          path: .cache
-          key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
-          restore-keys: |
-            ${{ runner.os }}-pip-
+          enable-cache: true
 
-      - name: Install dependencies
-        run: pip install mkdocs-material pillow cairosvg
-
-      - name: Build documentation
-        run: mkdocs gh-deploy --force
+      - name: Build & deploy documentation
+        run: uvx --with "mkdocs-material[emoji]" --with pillow --with cairosvg mkdocs gh-deploy --force
