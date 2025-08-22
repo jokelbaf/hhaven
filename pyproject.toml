@@ -2,7 +2,7 @@
 name = "hhaven"
 license = "MIT"
 version = "0.2.0"
-requires-python = ">=3.9"
+requires-python = ">=3.10"
 description = "A well-documented and typed API wrapper for Hentai Haven."
 authors = [
     { name = "JokelBaf", email = "jokelbaf@gmail.com" },
