@@ -34,3 +34,18 @@ dependencies = [
 homepage = "https://github.com/jokelbaf/hhaven"
 repository = "https://github.com/jokelbaf/hhaven"
 documentation = "https://hhaven.nekolab.app"
+
+[dependency-groups]
+test = [
+    "pytest>=8.4.1",
+    "pytest-asyncio>=1.1.0",
+]
+
+[tool.pytest.ini_options]
+addopts = [
+  "--import-mode=importlib",
+]
+asyncio_mode = "auto"
+pythonpath = [
+  "."
+]
