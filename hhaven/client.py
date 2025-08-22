@@ -1,41 +1,40 @@
 """Main client module."""
 
-import logging, aiohttp, typing, json, aiocache
-from collections import namedtuple
+import aiohttp
+import json
+import logging
+import typing
+
+import aiocache  # type: ignore[reportMissingTypeStubs]
 
 from . import exceptions, utility, models
 from .decorators import requires_build, requires_token, cached
-
 
 __all__ = [
     "Client"
 ]
 
-
 class Client:
     """Hentai Haven client."""
-    
+
     # Custom docs for pydoc
-    token: str
-    """Cloudflare token used to access Hentai Haven API."""
-    cache: aiocache.Cache
+    cache: aiocache.Cache | None  # type: ignore[reportUnknownMemberType]
     """Cache object to cache functions results."""
     cache_ttl: int
     """Time to live for the cache."""
-    
-    
+
     _built = False
-    
+
     _BASE_API_URL = "https://api.hentaihaven.app/v1/"
-    
+
     _logger: logging.Logger = logging.getLogger(__name__)
-    
-    _default_headers: typing.Mapping[str, str] = {
+
+    _default_headers: typing.Dict[str, str] = {
         "content-type": "application/x-www-form-urlencoded; charset=utf-8",
         "user-agent": "HH_xxx_APP",
         "warden": ""
     }
-    
+
     _default_warden_body: typing.Mapping[str, typing.Any] = {
         "sdkInt": 33,
         "board": "goldfish_x86_64",
@@ -45,13 +44,12 @@ class Client:
         "manufacturer": "Google",
         "model": "sdk_gphone_x86_64"
     }
-    
-    
+
     def __init__(
         self, 
-        token: str = None,
+        token: str | None = None,
         *,
-        cache: aiocache.Cache = None,
+        cache: aiocache.Cache | None = None,
         cache_ttl: int = 1800,
         debug: bool = False,
         warden_body: typing.Mapping[str, typing.Any] = _default_warden_body
@@ -60,13 +58,13 @@ class Client:
         Initialize Hentai Heaven Client with the given parameters.
 
         Args:
-            token (str, optional): Cloudflare token used to access Hentai Haven API.
-            cache (aiocache.Cache, optional): Cache object to cache functions results.
-            cache_ttl (int, optional): Time to live for the cache.
-            debug (bool, optional): Whether the debug logs are being shown in stdout.
-            warden_body (typing.Mapping[str, typing.Any], optional): Custom warden body with your device info.
-            
-        Note that in order to completely initialize client you 
+            token: Cloudflare token used to access Hentai Haven API.
+            cache: Cache object to cache functions results.
+            cache_ttl: Time to live for the cache.
+            debug: Whether the debug logs are being shown in stdout.
+            warden_body: Custom warden body with your device info.
+
+        Note that in order to completely initialize client you
         need to call `client.build()` function.
         """
         self.cache = cache
@@ -76,23 +74,20 @@ class Client:
         
         if token:
             self.token = token
-            
-            
+    
     @property
-    def token(self) -> str:
+    def token(self) -> str | None:
         """Cloudflare token used to access Hentai Haven API."""
         return self._default_headers["warden"]
 
     @token.setter
     def token(self, token: str) -> None:
         self._default_headers["warden"] = token
-        
     
     @property
     def debug(self) -> bool:
         """Whether the debug logs are being shown in stdout."""
         return logging.getLogger("hhaven").level == logging.DEBUG
-        
     
     @debug.setter
     def debug(self, debug: bool) -> None:
@@ -100,10 +95,9 @@ class Client:
         level = logging.DEBUG if debug else logging.NOTSET
         logging.getLogger("hhaven").setLevel(level)
     
-    
     async def build(
         self, 
-        token: str = None,
+        token: str | None = None,
         *,
         validate_token: bool = True
     ) -> "Client":
@@ -111,8 +105,8 @@ class Client:
         Use this function to build a client.
         
         Args:
-            token (str, optional): Token used to access Hentai Heaven API.
-            validate_token (bool, optional): Validate token with test request to the API.
+            token: Token used to access Hentai Heaven API.
+            validate_token: Validate token with test request to the API.
         Returns:
             Built client.
         """
@@ -125,12 +119,11 @@ class Client:
         
         if validate_token:
             # Validate token
-            await self._request("GET", "hentai/home", disable_logging = True)
+            await self._request("GET", "hentai/home", disable_logging=True)
         
         self._built = True
             
         return self
-    
 
     async def _request(
         self,
@@ -140,24 +133,23 @@ class Client:
         data: typing.Mapping[str, typing.Any] = {},
         disable_logging: bool = False
     ) -> typing.Mapping[str, typing.Any]:
-        async with aiohttp.ClientSession(headers = headers) as session:
+        async with aiohttp.ClientSession(headers=headers) as session:
             async with session.request(
                 method = method,
                 url = self._BASE_API_URL + path,
                 data = data
             ) as r:
                 response = await r.json()
-                status = utility._get_status_from_response(response) or r.status
-                
+                status = utility.get_status_from_response(response) or r.status
+
                 if not disable_logging:
                     self._logger.debug("%s %s\n%s\n%s", method, r.url, json.dumps(data, separators=(",", ":")), response)
                 
                 if not str(status).startswith("2"):
-                    return utility._raise_for_status(status)
+                    utility.raise_for_status(status)
                 
                 return response
-        
-    
+
     @requires_build
     @requires_token
     @cached
@@ -169,10 +161,9 @@ class Client:
             `models.HomePage` - [Docs](https://github.com)
         """
         data = await self._request("GET", "hentai/home")
-        
-        return models.HomePage(client = self, **data["data"])
-    
-    
+
+        return models.HomePage(client=self, **data["data"])
+
     @requires_build
     @requires_token
     @cached
@@ -181,19 +172,18 @@ class Client:
         Search for hentai.
         
         Args:
-            query (str): Query to search for.
+            query: Query to search for.
         Returns:
             `list[models.PartialHentai]` - [Docs](https://github.com)
         """
         data = await self._request("GET", f"search?q={query}")
         
         # Nothing found
-        if type(data["data"]) == str:
+        if type(data["data"]) is str:
             return []
-        
-        return [models.PartialHentai(client = self, **post) for post in data["data"]]
-    
-    
+
+        return [models.PartialHentai(client=self, **post) for post in data["data"]]
+
     @requires_build
     @requires_token
     @cached
@@ -202,19 +192,18 @@ class Client:
         Get full hentai info using it's ID. Raises `exceptions.HentaiEpisodeNotFound` if hentai was not found.
         
         Args:
-            id (int): ID of the hentai.
+            id: ID of the hentai.
         Returns:
             `models.Hentai` - [Docs](https://github.com)
         """
         data = await self._request("GET", f"hentai/{id}")
         
         # Not found
-        if type(data["data"]) == str:
+        if type(data["data"]) is str:
             raise exceptions.HentaiNotFound()
         
-        return models.Hentai(client = self, **data["data"])
-    
-    
+        return models.Hentai(client=self, **data["data"])
+
     @requires_build
     @requires_token
     @cached
@@ -223,35 +212,33 @@ class Client:
         Get full hentai episode info. Raises `exceptions.HentaiEpisodeNotFound` if episode was not found.
         
         Args:
-            id (int): ID of the episode.
-            hentai_id (int): ID of the hentai this episode belongs to.
+            id: ID of the episode.
+            hentai_id: ID of the hentai this episode belongs to.
         Returns:
             `models.HentaiEpisode` - [Docs](https://github.com)
         """
         data = await self._request("GET", f"hentai/{hentai_id}/episode/{id}")
         
         # Not found
-        if type(data["data"]) == str:
+        if type(data["data"]) is str:
             raise exceptions.HentaiEpisodeNotFound()
-        
+
         return models.HentaiEpisode(**data["data"])
-    
-    
+
     @requires_build
     @requires_token
     @cached
-    async def get_all_genres(self) -> models.HentaiGenre:
+    async def get_all_genres(self) -> typing.List[models.HentaiGenre]:
         """
         Get list of all hentai genres.
         
         Returns:
             `list[models.HentaiGenre]` - [Docs](https://github.com)
         """
-        data = await self._request("GET", f"genre/all")
+        data = await self._request("GET", "genre/all")
         
-        return [models.HentaiGenre(client = self, **genre) for genre in data["data"]]
+        return [models.HentaiGenre(client=self, **genre) for genre in data["data"]]
 
-    
     @requires_build
     @requires_token
     @cached
@@ -260,20 +247,19 @@ class Client:
         Get page with list of hentai of the requested genre. Raises `exceptions.GenrePageNotFound` if page was not found.
         
         Args:
-            id (int): ID of the genre you want to get page for.
-            page (int, optional): Index of the page you want to get.
+            id: ID of the genre you want to get page for.
+            page: Index of the page you want to get.
         Returns:
             `models.GenrePage` - [Docs](https://github.com)
         """
         data = await self._request("GET", f"genre/{id}?p={page}")
         
         # Not found
-        if type(data["data"]) == str:
+        if type(data["data"]) is str:
             raise exceptions.GenrePageNotFound()
-        
-        return models.GenrePage(client = self, **data["data"])
-    
-    
+
+        return models.GenrePage(client=self, **data["data"])
+
     @requires_build
     @requires_token
     @cached
@@ -282,19 +268,18 @@ class Client:
         Get page of all available hentai on the website. Raises `exceptions.HentaiPageNotFound` if page was not found.
         
         Args:
-            page (int, optional): Index of the page you want to get.
+            page: Index of the page you want to get.
         Returns:
             `models.HentaiPage` - [Docs](https://github.com)
         """
         data = await self._request("GET", f"hentai/all?p={page}")
         
         # Not found
-        if type(data["data"]) == str:
+        if type(data["data"]) is str:
             raise exceptions.HentaiPageNotFound()
-        
-        return models.HentaiPage(client = self, **data["data"])
-    
-    
+
+        return models.HentaiPage(client=self, **data["data"])
+
     async def get_new_token(
         self, 
         apply: bool = True,
@@ -306,7 +291,7 @@ class Client:
         Obtain new Cloudflare token. 
         
         Args:
-            apply (bool, optional): Apply received token to this client.
+            apply: Apply received token to this client.
         
         Returns:
             Obtained token.

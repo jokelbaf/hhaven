@@ -1,8 +1,9 @@
 """All HHaven models."""
+import typing
+
+import pydantic
 
 from datetime import datetime
-import pydantic, typing
-
 
 __all__ = [
     "HentaiRating",
@@ -20,14 +21,12 @@ __all__ = [
     "PartialHentai"
 ]
 
-
 class HentaiRating(pydantic.BaseModel):
     """Information about hentai rating."""
     rating: float
     """Hentai rating."""
     votes: int
     """Number of people who voted when calculating the rating."""
-
 
 class HentaiGenre(pydantic.BaseModel):
     """HentaiGenre object."""
@@ -55,7 +54,7 @@ class HentaiGenre(pydantic.BaseModel):
     """
     client: typing.Any
     
-    def __init__(self, **data):
+    def __init__(self, **data: typing.Any):
         processed = {
             k.lower().replace("term_", ""): v
             for k, v in data.items()
@@ -67,12 +66,11 @@ class HentaiGenre(pydantic.BaseModel):
         Get page with hentai of this genre.
         
         Args:
-            page (int, optional): Index of the page you want to get.
+            page: Index of the page you want to get.
         Returns:
             `models.GenrePage` - [Docs](https://github.com)
         """
         return await self.client.get_genre_page(self.id, page)
-
 
 class PartialHentaiGenre(pydantic.BaseModel):
     """Short HentaiGenre object."""
@@ -86,14 +84,14 @@ class PartialHentaiGenre(pydantic.BaseModel):
     """
     client: typing.Any
     
-    def __init__(self, **data):
+    def __init__(self, **data: typing.Any):
         processed = {
             k.lower().replace("term_", ""): v
             for k, v in data.items()
         }
         super().__init__(**processed)
         
-    async def full(self) -> HentaiGenre:
+    async def full(self) -> typing.List[HentaiGenre]:
         """
         Get full genre information.
         
@@ -108,13 +106,12 @@ class PartialHentaiGenre(pydantic.BaseModel):
         Get page with hentai of this genre.
         
         Args:
-            page (int, optional): Index of the page you want to get.
+            page: Index of the page you want to get.
         Returns:
             `models.GenrePage` - [Docs](https://github.com)
         """
         return await self.client.get_genre_page(self.id, page)
-    
-    
+
 class GenrePage(pydantic.BaseModel):
     """Page with hentai of certain genre."""
     genre: HentaiGenre
@@ -129,7 +126,7 @@ class GenrePage(pydantic.BaseModel):
     """Total pages available for this genre."""
     client: typing.Any
     
-    def __init__(self, **data):
+    def __init__(self, **data: typing.Any):
         data["genre"] = data.pop("term")
         data["hentai"] = data.pop("hentais")
         data["index"] = data.pop("current_page")
@@ -158,8 +155,7 @@ class GenrePage(pydantic.BaseModel):
             `models.GenrePage` - [Docs](https://github.com)
         """
         return await self.client.get_genre_page(self.genre.id, self.index - 1)
-        
-        
+
 class HentaiPage(pydantic.BaseModel):
     """Page with all hentai of the website."""
     hentai: list["PartialHentai"]
@@ -172,7 +168,7 @@ class HentaiPage(pydantic.BaseModel):
     """Total pages available."""
     client: typing.Any
     
-    def __init__(self, **data):
+    def __init__(self, **data: typing.Any):
         data["hentai"] = data.pop("hentais")
         data["index"] = data.pop("current_page")
         
@@ -198,8 +194,7 @@ class HentaiPage(pydantic.BaseModel):
             `models.HentaiPage` - [Docs](https://github.com)
         """
         return await self.client.get_all_hentai(self.index - 1)
-     
-        
+
 class HentaiTag(pydantic.BaseModel):
     """Hentai tag."""
     id: int
@@ -210,30 +205,28 @@ class HentaiTag(pydantic.BaseModel):
     
     Examples: HD, Young
     """
-    
-    def __init__(self, **data):
+
+    def __init__(self, **data: typing.Any):
         processed = {
             k.lower().replace("term_", ""): v
             for k, v in data.items()
         }
         super().__init__(**processed)
-        
-        
+
 class HentaiAuthor(pydantic.BaseModel):
     """Hentai author object."""
     id: int
     """Author ID."""
     name: str
     """Author's name."""
-    
-    def __init__(self, **data):
+
+    def __init__(self, **data: typing.Any):
         processed = {
             k.lower().replace("term_", ""): v
             for k, v in data.items()
         }
         super().__init__(**processed)
-        
-        
+
 class HentaiRelease(pydantic.BaseModel):
     """Hentai release object."""
     id: int
@@ -244,15 +237,14 @@ class HentaiRelease(pydantic.BaseModel):
     
     Example: 2023
     """
-    
-    def __init__(self, **data):
+
+    def __init__(self, **data: typing.Any):
         processed = {
             k.lower().replace("term_", ""): v
             for k, v in data.items()
         }
         super().__init__(**processed)
-        
-        
+
 class HentaiEpisode(pydantic.BaseModel):
     """Hentai episode."""
     id: int
@@ -334,8 +326,8 @@ class HentaiEpisode(pydantic.BaseModel):
     """Next hentai episode."""
     prev_episode: typing.Optional["HentaiEpisode"] = None
     """Previous hentai episode."""
-    
-    def __init__(self, **data):
+
+    def __init__(self, **data: typing.Any):
         processed = {
             k.lower().replace("post_", "hentai_").replace("chapter_", ""): v
             for k, v in data.items()
@@ -364,8 +356,7 @@ class HentaiEpisode(pydantic.BaseModel):
             genre["client"] = data.get("client")
         
         super().__init__(**processed)
-        
-        
+ 
 class PartialHentaiEpisode(pydantic.BaseModel):
     """Simplified HentaiEpisode object."""
     id: int
@@ -415,8 +406,8 @@ class PartialHentaiEpisode(pydantic.BaseModel):
     hentai_description: str
     """Full hentai description in English."""
     client: typing.Any
-    
-    def __init__(self, **data):
+
+    def __init__(self, **data: typing.Any):
         processed = {
             k.lower().replace("post_", "hentai_").replace("chapter_", ""): v
             for k, v in data.items()
@@ -435,7 +426,6 @@ class PartialHentaiEpisode(pydantic.BaseModel):
         """
         return await self.client.get_episode(self.id, self.hentai_id)
 
-        
 class Hentai(pydantic.BaseModel):
     """Hentai object."""
     id: int
@@ -483,8 +473,8 @@ class Hentai(pydantic.BaseModel):
     episodes: list[PartialHentaiEpisode]
     """List of episodes."""
     client: typing.Any
-    
-    def __init__(self, **data):
+
+    def __init__(self, **data: typing.Any):
         processed = {
             k.lower().replace("post_", ""): v
             for k, v in data.items()
@@ -504,7 +494,6 @@ class Hentai(pydantic.BaseModel):
             genre["client"] = data.get("client")
         
         super().__init__(**processed)
-
 
 class PartialHentai(pydantic.BaseModel):
     """Simplified Hentai object."""
@@ -529,8 +518,8 @@ class PartialHentai(pydantic.BaseModel):
     Example: https://example.com/image.jpg
     """
     client: typing.Any
-    
-    def __init__(self, **data):
+
+    def __init__(self, **data: typing.Any):
         processed = {
             k.lower().replace("post_", ""): v
             for k, v in data.items()
@@ -545,7 +534,6 @@ class PartialHentai(pydantic.BaseModel):
             `models.Hentai` - [Docs](https://github.com)
         """
         return await self.client.get_hentai(self.id)
-
 
 class HomePage(pydantic.BaseModel):
     """Home page information."""
@@ -568,11 +556,10 @@ class HomePage(pydantic.BaseModel):
     last_episodes: list[PartialHentaiEpisode]
     """Last released hentai episodes."""
     
-    def __init__(self, **data):
-        for key, value in data.items():
+    def __init__(self, **data: typing.Any):
+        for _, value in data.items():
             if isinstance(value, list):
-                for item in value:
+                for item in typing.cast(list[typing.Any], value):
                     item["client"] = data.get("client")
                     
         super().__init__(**data)
-        
