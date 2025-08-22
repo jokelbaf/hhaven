@@ -27,7 +27,7 @@ print(client.token)
 You may want to see all incoming and outgoing traffic the library send and receive. In order to enable debugging, use `debug` argument of the Client class:
 
 ```python
-client = await Client(debug = True).build()
+client = await Client(debug=True).build()
 ```
 
 After this you will see logs on every request on console:
@@ -54,7 +54,7 @@ import asyncio, time
 
 async def main():
     cache = Cache(Cache.MEMORY)
-    client = await Client(cache = cache).build()
+    client = await Client(cache=cache).build()
 
     for i in ["First", "Second", "Third"]:
         start = time.time()
@@ -86,8 +86,8 @@ from hhaven import Client
 import asyncio, time
 
 async def main():
-    cache = Cache(Cache.REDIS, endpoint = "127.0.0.1", port = 6379, namespace = "main")
-    client = await Client(cache = cache).build()
+    cache = Cache(Cache.REDIS, endpoint="127.0.0.1", port=6379, namespace="main")
+    client = await Client(cache=cache).build()
 
     for i in ["First", "Second", "Third"]:
         start = time.time()
@@ -112,12 +112,12 @@ Every time you initialize client with your own token, it is validated by request
 ...
 if validate_token:
     # Validate token
-    await self._request("GET", "hentai/home", disable_logging = True)
+    await self._request("GET", "hentai/home", disable_logging=True)
 ```
 
 You can disable this behavior by setting `validate_token` to `False` during client initialization:
 ```python
-await Client().build(validate_token = False)
+await Client().build(validate_token=False)
 ``` 
 
 ## Exceptions handling
