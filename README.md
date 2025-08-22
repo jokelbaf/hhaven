@@ -72,3 +72,21 @@ async def main():
 if __name__ == "__main__":
     asyncio.run(main())
 ```
+
+## Development
+
+Uv is a preferred tool for managing dependencies and running the development environment in hhaven. To setup the project locally, use the following commands:
+```bash
+git clone https://github.com/JokelBaf/hhaven.git
+cd hhaven
+uv sync
+```
+
+To run documentation locally, use the following command:
+```bash
+uvx --with mkdocs-material[emoji] mkdocs serve
+```
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
