@@ -1,22 +1,19 @@
-[tool.poetry]
+[project]
 name = "hhaven"
 license = "MIT"
-version = "0.1.4"
+version = "0.2.0"
+requires-python = ">=3.9"
 description = "A well-documented and typed API wrapper for Hentai Haven."
 authors = [
-    "JokelBaf <jokelbaf@gmail.com>",
+    { name = "JokelBaf", email = "jokelbaf@gmail.com" },
 ]
 maintainers = [
-    "JokelBaf <jokelbaf@gmail.com>",
+    { name = "JokelBaf", email = "jokelbaf@gmail.com" },
 ]
 readme = "README.md"
-homepage = "https://github.com/jokelbaf/hhaven"
-repository = "https://github.com/jokelbaf/hhaven"
-documentation = "https://hhaven.nekolab.app"
 keywords = ["hentai-haven", "hentai"]
 classifiers = [
     "Development Status :: 4 - Beta",
-    "License :: OSI Approved :: MIT License",
     "Intended Audience :: Developers",
     "Natural Language :: English",
     "Operating System :: OS Independent",
@@ -27,9 +24,13 @@ classifiers = [
     "Topic :: Utilities",
     "Typing :: Typed",
 ]
+dependencies = [
+    "aiocache>=0.12.3",
+    "aiohttp>=3.12.15",
+    "pydantic>=2.11.7",
+]
 
-[tool.poetry.dependencies]
-aiocache = "^0.12.1"
-pydantic = "^2.0.2"
-aiohttp = "^3.8.4"
-python = "^3.8"
+[project.urls]
+homepage = "https://github.com/jokelbaf/hhaven"
+repository = "https://github.com/jokelbaf/hhaven"
+documentation = "https://hhaven.nekolab.app"
