@@ -34,5 +34,9 @@ jobs:
           uv sync --group test
 
       - name: Run tests
+        env:
+          PROXY_URL: ${{ secrets.PROXY_URL }}
+          PROXY_USERNAME: ${{ secrets.PROXY_USERNAME }}
+          PROXY_PASSWORD: ${{ secrets.PROXY_PASSWORD }}
         run: |
           uv run pytest
