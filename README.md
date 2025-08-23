@@ -23,7 +23,7 @@ API Reference - https://jokelbaf.github.io/hhaven-api-reference
 
 ## Requirements
 
-- Python 3.8+
+- Python 3.10+
 - pydantic
 - aiohttp
 - aiocache
