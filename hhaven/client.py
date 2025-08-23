@@ -22,6 +22,10 @@ class Client:
     """Cache object to cache functions results."""
     cache_ttl: int
     """Time to live for the cache."""
+    proxy: str | None
+    """Proxy url for requests."""
+    proxy_auth: aiohttp.BasicAuth | None
+    """Proxy authentication for requests."""
 
     _built = False
 
@@ -52,7 +56,9 @@ class Client:
         cache: aiocache.Cache | None = None,
         cache_ttl: int = 1800,
         debug: bool = False,
-        warden_body: typing.Mapping[str, typing.Any] = _default_warden_body
+        warden_body: typing.Mapping[str, typing.Any] = _default_warden_body,
+        proxy: str | None = None,
+        proxy_auth: aiohttp.BasicAuth | None = None
     ) -> None:
         """
         Initialize Hentai Heaven Client with the given parameters.
@@ -71,7 +77,9 @@ class Client:
         self.debug = debug
         self.cache_ttl = cache_ttl
         self._default_warden_body = warden_body
-        
+        self.proxy = proxy
+        self.proxy_auth = proxy_auth
+
         if token:
             self.token = token
     
@@ -133,11 +141,15 @@ class Client:
         data: typing.Mapping[str, typing.Any] = {},
         disable_logging: bool = False
     ) -> typing.Mapping[str, typing.Any]:
-        async with aiohttp.ClientSession(headers=headers) as session:
+        async with aiohttp.ClientSession(
+            headers=headers,
+            proxy=self.proxy,
+            auth=self.proxy_auth
+        ) as session:
             async with session.request(
-                method = method,
-                url = self._BASE_API_URL + path,
-                data = data
+                method=method,
+                url=self._BASE_API_URL + path,
+                data=data,
             ) as r:
                 response = await r.json()
                 status = utility.get_status_from_response(response) or r.status
