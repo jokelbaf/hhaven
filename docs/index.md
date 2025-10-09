@@ -4,7 +4,7 @@
 
 # HHaven
 
-A well-documented and typed API wrapper for [**Hentai Haven**](https://hentaihaven.xxx/), providing efficient asynchronous requests, built-in cache support, and Pydantic Models for seamless autocompletion and linter support.
+A well-documented and typed API wrapper for **Hentai Haven**, providing efficient asynchronous requests, built-in cache support, and Pydantic Models for seamless autocompletion and linter support.
 
 ## Key Features
 - **Efficient Asynchronous Structure:** Utilize a fully asynchronous structure that enhances request speed without affecting other processes in your code.
